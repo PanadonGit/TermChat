@@ -1,3 +1,4 @@
 textual
 textual-dev
 python-socketio[asyncio_client]
+requests
