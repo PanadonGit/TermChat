@@ -8,6 +8,11 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+//import controller here
+const API = require('./controller/api')
+
+
+
 let clientSockets = {};  // Store client IDs
 
 io.on('connection', (socket) => {
@@ -58,17 +63,8 @@ app.get('/notify/:socketId', (req, res) => {
 });
 
 
-app.post('/api/login',(req,res)=>{
+app.use('/api',API);
 
-  //login logic goes here ===================================
-  const {user,password} = req.body;
-
-  if(user === "admin" && password === "1234") return res.sendStatus(200);
-  return res.sendStatus(403);
-
-  // ========================================================================
-
-});
 
 
 
