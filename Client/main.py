@@ -21,6 +21,7 @@ class WelcomeScreen(Screen):
 
 class MainApp(App):
     #SCREENS = {"login": LoginScreen}
+    CSS_PATH="global.css"
 
     def on_mount(self) -> None:
         self.install_screen(LoginScreen(), name="login")

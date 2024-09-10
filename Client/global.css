@@ -1,0 +1,13 @@
+.forgot-button {
+    width: 20; 
+    border: blank;
+    background: wheat 0%;
+
+}
+.forgot-button:focus {
+    width: 20; 
+    border: blank;
+    background: wheat 0%;
+    text-style: underline;
+
+}
