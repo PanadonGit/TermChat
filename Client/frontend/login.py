@@ -1,6 +1,7 @@
 from textual.app import ComposeResult
 from textual.widgets import Input,Static,Button
 from textual.message import Message
+from textual.containers import  Vertical
 from rich.text import Text
 
 
@@ -12,7 +13,8 @@ url = 'http://localhost:3000/api/auth/login'
 
 
 class LoginComponent(Static):
-    CSS_PATH = "./css/login.tcss"
+    #CSS_PATH = "login.css"
+
 
     username = ""
     password = ""
@@ -26,12 +28,15 @@ class LoginComponent(Static):
     def compose(self) -> ComposeResult:
         yield Static("\n\n\n")
         yield Static("Please Login\n")
-        yield Input(placeholder="Login",id="user_input")
+        yield Input(placeholder="Email",id="user_input")
         yield Input(placeholder="Password",password=True,id="passwd_input")
+        yield Static("",id='wrong_passwd')
         yield Static("\n")
         yield Button("Login",id="loginbtn")
         yield Static("\n")
-        yield Static("",id='wrong_passwd')
+        yield Vertical(Button("forgot password",classes="forgot-button"),Button("Register",classes="forgot-button"))
+
+    
 
 
 
@@ -49,7 +54,7 @@ class LoginComponent(Static):
                 self.post_message(self.Succeeded(StatusCode))
             else:
                 wrong_passwd = self.query_one("#wrong_passwd",Static)
-                wrong_text = Text("invalid username or password", style="bold red")
+                wrong_text = Text(result.json()['msg'],style="bold red")
                 wrong_passwd.update(wrong_text)
 
             
