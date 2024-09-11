@@ -1,5 +1,5 @@
-from frontend import LoginComponent,WelcomePage
-from textual.widgets import  Footer, Header
+from frontend import LoginComponent,WelcomePage,RegisterComponent
+from textual.widgets import  Footer, Header,Button
 from textual.screen import Screen
 
 
@@ -18,6 +18,12 @@ class WelcomeScreen(Screen):
     def compose(self) -> ComposeResult:
         yield WelcomePage()
 
+class RegisterScreen(Screen):
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield RegisterComponent()
+        yield Footer()
+
 
 class MainApp(App):
     #SCREENS = {"login": LoginScreen}
@@ -26,6 +32,7 @@ class MainApp(App):
     def on_mount(self) -> None:
         self.install_screen(LoginScreen(), name="login")
         self.install_screen(WelcomeScreen(), name="welcome")
+        self.install_screen(RegisterScreen(),name="register")
         self.push_screen('login')
 
     def on_login_component_succeeded(self,message:LoginComponent.Succeeded) -> None:
@@ -33,9 +40,15 @@ class MainApp(App):
         self.push_screen('welcome')
         self.switch_screen('welcome')
         self.pop_screen
-        
-        
 
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+
+        if(event.button.id=="register-btn"):
+            self.push_screen('register')
+            self.switch_screen('register')
+            
+
+        
 
 
 
