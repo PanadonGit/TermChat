@@ -1,3 +1,4 @@
+const prisma = require('./lib/prisma-utils')
 const express = require('express');
 
 const app = express();
@@ -66,7 +67,12 @@ app.get('/notify/:socketId', (req, res) => {
 app.use('/api',API);
 
 
-
+// Disconnect Prisma when the process ends
+process.on('SIGINT', async () => {
+  console.log('Shutting down...');
+  await prisma.$disconnect();
+  process.exit();
+});
 
 server.listen(3000, () => {
   console.log('listening on *:3000');
