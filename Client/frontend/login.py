@@ -1,7 +1,7 @@
 from textual.app import ComposeResult
 from textual.widgets import Input,Static,Button
 from textual.message import Message
-from textual.containers import  Vertical
+from textual.containers import Horizontal 
 from rich.text import Text
 
 
@@ -28,13 +28,13 @@ class LoginComponent(Static):
     def compose(self) -> ComposeResult:
         yield Static("\n\n\n")
         yield Static("Please Login\n")
-        yield Input(placeholder="Email",id="user_input")
-        yield Input(placeholder="Password",password=True,id="passwd_input")
+        yield Input(placeholder="Email",id="user_input" , classes="input-login")
+        yield Input(placeholder="Password",password=True,id="passwd_input" , classes="input-login")
         yield Static("",id='wrong_passwd')
         yield Static("\n")
         yield Button("Login",id="loginbtn")
         yield Static("\n")
-        yield Vertical(Button("forgot password",classes="forgot-button"),Button("Register",classes="forgot-button"))
+        yield Horizontal(Button("forgot password",classes="forgot-button"), Button("Register",classes="forgot-button",id="register-btn"))
 
     
 
